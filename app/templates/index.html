@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-zinc-950 text-zinc-100">
+<html lang="en" class="h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sarvam AI // Citizen Disaster Dispatch & Fusion Terminal</title>
+  <title>Sarvam AI &bull; Citizen Emergency Dispatch</title>
   
-  <!-- Inter & JetBrains Mono Fonts -->
+  <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -17,14 +17,8 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
-          },
-          colors: {
-            zinc: {
-              925: '#111115',
-              950: '#09090b',
-            }
           }
         }
       }
@@ -36,403 +30,462 @@
 
   <style>
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     }
-    .custom-scrollbar::-webkit-scrollbar {
+    .scrollbar-thin::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: #09090b;
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: #f1f5f9;
     }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #27272a;
-      border-radius: 4px;
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
     }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: #3f3f46;
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
     }
   </style>
 </head>
-<body class="h-full flex flex-col bg-zinc-950 text-zinc-200 antialiased selection:bg-zinc-700 selection:text-white">
+<body class="h-full bg-slate-50 text-slate-800 flex overflow-hidden">
 
-  <!-- TOP APPLICATION BAR -->
-  <header class="border-b border-zinc-800 bg-zinc-900/80 backdrop-blur px-6 py-3 sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
-      
-      <!-- System Identity -->
+  <!-- ======================================================== -->
+  <!-- LEFT SIDEBAR                                             -->
+  <!-- ======================================================== -->
+  <aside class="w-72 bg-slate-900 text-slate-300 flex flex-col border-r border-slate-800 flex-shrink-0 select-none">
+    
+    <!-- Brand / App Header -->
+    <div class="p-6 border-b border-slate-800/80">
       <div class="flex items-center gap-3">
-        <div class="h-8 w-8 rounded border border-zinc-700 bg-zinc-800 flex items-center justify-center text-zinc-100 font-mono text-sm font-semibold">
-          SR
+        <div class="w-10 h-10 rounded-xl bg-orange-600 flex items-center justify-center text-white shadow-md shadow-orange-900/40">
+          <i data-lucide="shield-alert" class="w-5 h-5"></i>
         </div>
         <div>
-          <div class="flex items-center gap-2">
-            <span class="text-sm font-semibold text-white tracking-tight">Citizen Emergency Dispatch</span>
-            <span class="text-[11px] font-mono px-1.5 py-0.5 rounded border border-zinc-700 bg-zinc-800/80 text-zinc-400">
-              Sarvam AI Platform
-            </span>
-          </div>
-          <p class="text-[11px] text-zinc-500 font-mono">Offline-First Indic STT &bull; 105B Triage &bull; Regional TTS</p>
+          <h1 class="text-sm font-bold text-white tracking-tight">Citizen Dispatch</h1>
+          <p class="text-[11px] text-slate-400">Offline-First Emergency System</p>
         </div>
       </div>
+      <div class="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-800 text-orange-400 border border-slate-700/60">
+        <span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>
+        Powered by Sarvam AI
+      </div>
+    </div>
 
-      <!-- Navigation Tabs -->
-      <nav class="flex items-center gap-1 bg-zinc-950 p-1 rounded-lg border border-zinc-800">
-        <button id="nav-tab-field" onclick="switchNav('field')" class="px-3.5 py-1.5 rounded-md text-xs font-medium text-white bg-zinc-800 transition">
-          Field Ingestion (Edge)
-        </button>
-        <button id="nav-tab-board" onclick="switchNav('board')" class="px-3.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:text-zinc-200 transition">
-          Incident Command Feed
-          <span id="nav-incident-badge" class="ml-1.5 px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-zinc-800 text-zinc-300">0</span>
-        </button>
-        <button id="nav-tab-buffer" onclick="switchNav('buffer')" class="px-3.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:text-zinc-200 transition">
-          Edge Buffer & Advisories
-        </button>
-      </nav>
+    <!-- Network Connectivity Simulation Widget -->
+    <div class="p-4 mx-4 my-4 rounded-xl bg-slate-950/80 border border-slate-800">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Network Status</span>
+        <span id="sidebar-net-pill" class="inline-flex items-center gap-1.5 text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <span id="sidebar-net-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="sidebar-net-text">Online</span>
+        </span>
+      </div>
+      <p id="sidebar-net-desc" class="text-[11px] text-slate-400 leading-snug mb-3">
+        Reports auto-sync directly to cloud control board.
+      </p>
+      <button onclick="toggleNetwork()" id="sidebar-toggle-btn" class="w-full py-2 px-3 rounded-lg text-xs font-semibold border border-slate-700 hover:border-slate-600 bg-slate-800 hover:bg-slate-750 text-slate-200 transition flex items-center justify-center gap-2">
+        <i data-lucide="wifi-off" class="w-3.5 h-3.5 text-slate-400" id="sidebar-toggle-icon"></i>
+        <span id="sidebar-toggle-label">Test Offline Mode</span>
+      </button>
+    </div>
 
-      <!-- Network State Controller -->
-      <div class="flex items-center gap-2.5">
-        
-        <div id="status-pill" class="flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-mono border border-zinc-800 bg-zinc-900">
-          <span id="status-dot" class="h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span id="status-label" class="text-zinc-300">Checking...</span>
+    <!-- Navigation Menu Items -->
+    <nav class="flex-1 px-4 space-y-1.5 overflow-y-auto">
+      <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-3 py-2">
+        Navigation
+      </div>
+
+      <button onclick="switchTab('report')" id="nav-btn-report" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition bg-orange-600 text-white shadow-sm shadow-orange-900/30">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="send" class="w-4 h-4"></i>
+          <span>Send Emergency Report</span>
+        </div>
+      </button>
+
+      <button onclick="switchTab('board')" id="nav-btn-board" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition text-slate-400 hover:text-slate-100 hover:bg-slate-800/60">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+          <span>Emergency Board</span>
+        </div>
+        <span id="badge-board-count" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">0</span>
+      </button>
+
+      <button onclick="switchTab('queue')" id="nav-btn-queue" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition text-slate-400 hover:text-slate-100 hover:bg-slate-800/60">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="hard-drive" class="w-4 h-4"></i>
+          <span>Offline Device Queue</span>
+        </div>
+        <span id="badge-queue-count" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-amber-400">0</span>
+      </button>
+
+      <button onclick="switchTab('advisories')" id="nav-btn-advisories" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition text-slate-400 hover:text-slate-100 hover:bg-slate-800/60">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="volume-2" class="w-4 h-4"></i>
+          <span>Regional Voice Alerts</span>
+        </div>
+        <span id="badge-advisories-count" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-blue-400">0</span>
+      </button>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="p-4 border-t border-slate-800 bg-slate-950/40">
+      <button onclick="triggerSync()" id="btn-sidebar-sync" class="w-full py-2.5 px-3.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition flex items-center justify-center gap-2 shadow-sm disabled:opacity-40">
+        <i data-lucide="refresh-cw" class="w-3.5 h-3.5" id="sync-icon"></i>
+        <span>Sync All Now (<span id="pending-sync-count">0</span>)</span>
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- ======================================================== -->
+  <!-- MAIN CONTENT AREA                                        -->
+  <!-- ======================================================== -->
+  <main class="flex-1 flex flex-col overflow-y-auto bg-slate-50 scrollbar-thin">
+    
+    <!-- Top Context Bar -->
+    <header class="bg-white border-b border-slate-200/80 px-8 py-4 sticky top-0 z-20 flex items-center justify-between">
+      <div>
+        <h2 id="top-title" class="text-lg font-bold text-slate-900 tracking-tight">Send Emergency Report</h2>
+        <p id="top-desc" class="text-xs text-slate-500 mt-0.5">Submit disaster reports via low-bandwidth SMS or voice notes</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="text-right hidden sm:block">
+          <span class="text-[11px] font-medium text-slate-400 block font-mono">LOCATION NODE</span>
+          <span class="text-xs font-semibold text-slate-700">Edge Gateway #01 (Maharashtra)</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Body Container -->
+    <div class="p-8 max-w-6xl w-full mx-auto flex-1">
+
+      <!-- ==================================================== -->
+      <!-- TAB 1: SEND EMERGENCY REPORT                         -->
+      <!-- ==================================================== -->
+      <div id="tab-report" class="space-y-6">
+
+        <!-- Instant Success / Feedback Toast -->
+        <div id="report-toast" class="hidden rounded-xl p-4 border transition-all shadow-sm"></div>
+
+        <!-- Mode Cards Selector: SMS vs Voice -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <button type="button" onclick="selectReportType('sms')" id="type-card-sms" class="p-5 rounded-2xl border-2 border-orange-500 bg-white text-left shadow-sm transition hover:shadow-md flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="message-square" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <div class="font-bold text-sm text-slate-900">Text / SMS Emergency</div>
+              <p class="text-xs text-slate-500 mt-1 leading-relaxed">Works over 2G/low signal. Accepts any Indian regional language or Hindi/Marathi script.</p>
+            </div>
+          </button>
+
+          <button type="button" onclick="selectReportType('voice')" id="type-card-voice" class="p-5 rounded-2xl border-2 border-slate-200 bg-white text-left shadow-sm transition hover:shadow-md hover:border-slate-300 flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="phone-call" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <div class="font-bold text-sm text-slate-900">Voice Memo / Missed Call</div>
+              <p class="text-xs text-slate-500 mt-1 leading-relaxed">Record live speech or test regional voice presets. Transcribed automatically by Sarvam Saaras.</p>
+            </div>
+          </button>
         </div>
 
-        <button id="btn-toggle-net" onclick="toggleNetwork()" class="px-3 py-1.5 rounded-md text-xs font-medium border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 transition">
-          Simulate Offline
-        </button>
+        <!-- 1. SMS Form Section -->
+        <div id="section-sms-input" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
+          
+          <!-- One-Click Preset Scenarios -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">
+              1-Click Quick Fill Test Scenarios
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+              <button type="button" onclick="fillScenario('mr')" class="p-3 rounded-xl border border-slate-200 hover:border-orange-500/60 bg-slate-50 hover:bg-orange-50/50 text-left transition group">
+                <div class="text-xs font-bold text-slate-800 group-hover:text-orange-700">🌧️ Chiplun (Marathi)</div>
+                <div class="text-[11px] text-slate-500 mt-1 truncate">चिपळूण बाजार पेठेत पाणी...</div>
+              </button>
 
-        <button id="btn-sync-now" onclick="triggerSync()" class="px-3 py-1.5 rounded-md text-xs font-medium bg-zinc-100 hover:bg-white text-zinc-950 transition font-semibold disabled:opacity-40">
-          <span id="sync-spinner" class="inline-block mr-1">⟳</span>
-          Sync Queue (<span id="pending-counter">0</span>)
-        </button>
+              <button type="button" onclick="fillScenario('hi')" class="p-3 rounded-xl border border-slate-200 hover:border-orange-500/60 bg-slate-50 hover:bg-orange-50/50 text-left transition group">
+                <div class="text-xs font-bold text-slate-800 group-hover:text-orange-700">⛰️ Kedarnath (Hindi)</div>
+                <div class="text-[11px] text-slate-500 mt-1 truncate">भूस्खलन हुआ है, 15 यात्री...</div>
+              </button>
+
+              <button type="button" onclick="fillScenario('bn')" class="p-3 rounded-xl border border-slate-200 hover:border-orange-500/60 bg-slate-50 hover:bg-orange-50/50 text-left transition group">
+                <div class="text-xs font-bold text-slate-800 group-hover:text-orange-700">🌪️ Sundarbans (Bengali)</div>
+                <div class="text-[11px] text-slate-500 mt-1 truncate">বাঁধ ভেঙে জল ঢুকছে...</div>
+              </button>
+
+              <button type="button" onclick="fillScenario('ta')" class="p-3 rounded-xl border border-slate-200 hover:border-orange-500/60 bg-slate-50 hover:bg-orange-50/50 text-left transition group">
+                <div class="text-xs font-bold text-slate-800 group-hover:text-orange-700">🩺 Tambaram (Tamil)</div>
+                <div class="text-[11px] text-slate-500 mt-1 truncate">மருத்துவமனை பகுதியில் வெள்ள...</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Inputs -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Citizen Mobile Number</label>
+              <input type="text" id="input-sms-phone" value="+91 98201 12345" class="w-full sm:w-80 bg-slate-50 border border-slate-300 focus:border-orange-500 focus:bg-white rounded-xl px-4 py-2.5 text-xs font-mono font-medium text-slate-900 focus:outline-none transition">
+              <span class="text-[11px] text-slate-400 mt-1 block">Used by emergency rescue to send back regional SMS and automated voice advisories</span>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Emergency Message</label>
+              <textarea id="input-sms-message" rows="3" class="w-full bg-slate-50 border border-slate-300 focus:border-orange-500 focus:bg-white rounded-xl p-4 text-xs text-slate-900 focus:outline-none transition leading-relaxed" placeholder="Describe what happened, where you are stranded, and how many people need help..."></textarea>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-2 flex justify-end">
+            <button type="button" id="btn-submit-report" onclick="submitSms()" class="w-full sm:w-auto px-8 py-3 rounded-xl text-xs font-bold bg-orange-600 hover:bg-orange-500 text-white transition flex items-center justify-center gap-2 shadow-md shadow-orange-600/20">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Send Emergency Report</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- 2. Voice Form Section -->
+        <div id="section-voice-input" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6 hidden">
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Quick Regional Voice Distress Presets -->
+            <div class="border border-slate-200 bg-slate-50 p-5 rounded-2xl">
+              <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-1 flex items-center gap-2">
+                <i data-lucide="volume-2" class="w-4 h-4 text-orange-600"></i>
+                Simulate Inbound Voice Call
+              </h3>
+              <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+                Click any regional scenario. Sarvam Bulbul TTS will synthesize caller distress speech and queue it as an audio report.
+              </p>
+              <div class="space-y-2">
+                <button type="button" onclick="submitVoicePreset('flood_marathi')" class="w-full p-3 rounded-xl bg-white border border-slate-200 hover:border-orange-500 text-left transition flex items-center justify-between">
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">🌧️ Marathi Voice Call</div>
+                    <div class="text-[11px] text-slate-500">Chiplun Flood Rescue</div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold bg-orange-50 text-orange-700 px-2 py-0.5 rounded">PLAY & SEND</span>
+                </button>
+
+                <button type="button" onclick="submitVoicePreset('landslide_hindi')" class="w-full p-3 rounded-xl bg-white border border-slate-200 hover:border-orange-500 text-left transition flex items-center justify-between">
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">⛰️ Hindi Voice Call</div>
+                    <div class="text-[11px] text-slate-500">Kedarnath Landslide</div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold bg-orange-50 text-orange-700 px-2 py-0.5 rounded">PLAY & SEND</span>
+                </button>
+
+                <button type="button" onclick="submitVoicePreset('cyclone_bengali')" class="w-full p-3 rounded-xl bg-white border border-slate-200 hover:border-orange-500 text-left transition flex items-center justify-between">
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">🌪️ Bengali Voice Call</div>
+                    <div class="text-[11px] text-slate-500">Sundarbans Breach</div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold bg-orange-50 text-orange-700 px-2 py-0.5 rounded">PLAY & SEND</span>
+                </button>
+
+                <button type="button" onclick="submitVoicePreset('medical_tamil')" class="w-full p-3 rounded-xl bg-white border border-slate-200 hover:border-orange-500 text-left transition flex items-center justify-between">
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">🩺 Tamil Voice Call</div>
+                    <div class="text-[11px] text-slate-500">Tambaram Hospital</div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold bg-orange-50 text-orange-700 px-2 py-0.5 rounded">PLAY & SEND</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Record Live Voice -->
+            <div class="border border-slate-200 bg-slate-50 p-5 rounded-2xl flex flex-col justify-between">
+              <div>
+                <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-1 flex items-center gap-2">
+                  <i data-lucide="mic" class="w-4 h-4 text-red-600"></i>
+                  Record Live Voice Note
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+                  Record your voice through your microphone. Sarvam Saaras STT will transcribe it into text automatically upon sync.
+                </p>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Caller Phone Number</label>
+                  <input type="text" id="input-voice-phone" value="+91 94120 54321" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono text-slate-900">
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-slate-200/80 mt-4">
+                <button type="button" id="btn-mic-toggle" onclick="toggleMicrophone()" class="w-full py-3 rounded-xl text-xs font-bold bg-white border border-slate-300 hover:border-red-500 text-slate-700 transition flex items-center justify-center gap-2">
+                  <i data-lucide="disc" class="w-4 h-4 text-red-600" id="mic-icon"></i>
+                  <span id="mic-label">Click to Start Recording</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- TAB 2: EMERGENCY BOARD (INCIDENT COMMAND)            -->
+      <!-- ==================================================== -->
+      <div id="tab-board" class="space-y-6 hidden">
+        
+        <!-- Key Metrics Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+            <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Reports</div>
+            <div class="text-2xl font-extrabold text-slate-900 mt-1" id="metric-total">0</div>
+          </div>
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+            <div class="text-[11px] font-bold text-red-500 uppercase tracking-wider">Critical Priority</div>
+            <div class="text-2xl font-extrabold text-red-600 mt-1" id="metric-critical">0</div>
+          </div>
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+            <div class="text-[11px] font-bold text-amber-500 uppercase tracking-wider">Estimated Affected</div>
+            <div class="text-2xl font-extrabold text-amber-600 mt-1" id="metric-affected">0</div>
+          </div>
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+            <div class="text-[11px] font-bold text-emerald-500 uppercase tracking-wider">Advisories Sent</div>
+            <div class="text-2xl font-extrabold text-emerald-600 mt-1" id="metric-advisories">0</div>
+          </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="bg-white border border-slate-200 rounded-2xl px-6 py-3.5 shadow-sm flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-slate-800">Incident Feed</span>
+            <span class="text-xs text-slate-400">&bull; Triaged by Sarvam 105B AI</span>
+          </div>
+
+          <div class="flex items-center gap-2 text-xs">
+            <label class="text-slate-500 font-medium">Filter:</label>
+            <select id="filter-urgency" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 text-xs font-semibold text-slate-700 rounded-lg px-3 py-1.5 focus:outline-none">
+              <option value="ALL">All Emergencies</option>
+              <option value="CRITICAL">Critical Only</option>
+              <option value="HIGH">High Priority</option>
+              <option value="MEDIUM">Medium / Low</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Incident Cards Container -->
+        <div id="board-incident-list" class="space-y-4">
+          <!-- Dynamically populated -->
+        </div>
+
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- TAB 3: OFFLINE DEVICE QUEUE                          -->
+      <!-- ==================================================== -->
+      <div id="tab-queue" class="space-y-6 hidden">
+        
+        <div class="bg-amber-50 border border-amber-200/80 rounded-2xl p-5 text-amber-900 text-xs flex items-start gap-3">
+          <i data-lucide="info" class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5"></i>
+          <div class="leading-relaxed">
+            <strong class="font-bold text-amber-950">How Offline Queuing Works:</strong> When cell towers are down or you are in a remote dead-zone, emergency reports are saved directly into your device's local SQLite database. They will never be lost and automatically dispatch to the central board the instant internet connection is restored.
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900">Stored Edge Queue</h3>
+              <p class="text-xs text-slate-500">Local database: offline_emergency.db</p>
+            </div>
+            <span id="queue-count-tag" class="text-xs font-mono font-semibold bg-slate-100 px-3 py-1 rounded-full text-slate-700">0 items</span>
+          </div>
+
+          <div id="queue-items-table" class="space-y-3">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- TAB 4: SAFETY ADVISORIES (REGIONAL VOICE & TEXT)     -->
+      <!-- ==================================================== -->
+      <div id="tab-advisories" class="space-y-6 hidden">
+        
+        <div class="bg-blue-50 border border-blue-200/80 rounded-2xl p-5 text-blue-900 text-xs flex items-start gap-3">
+          <i data-lucide="volume-2" class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5"></i>
+          <div class="leading-relaxed">
+            <strong class="font-bold text-blue-950">Automated Indic Voice Advisories:</strong> When an emergency report arrives, Sarvam AI translates disaster instructions into the caller's regional language (Marathi, Hindi, Bengali, Tamil, etc.) and synthesizes human-like voice audio using <strong>Sarvam Bulbul TTS</strong> for phone playback.
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <div class="pb-4 border-b border-slate-100 mb-4 flex items-center justify-between">
+            <h3 class="text-sm font-bold text-slate-900">Generated Voice & SMS Advisories</h3>
+            <span class="text-xs font-mono text-slate-500">Cellular Callbacks</span>
+          </div>
+
+          <div id="advisories-list-cards" class="space-y-3.5">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
 
       </div>
 
     </div>
-  </header>
-
-  <!-- WORKSPACE CONTENT CONTAINER -->
-  <main class="flex-1 max-w-7xl w-full mx-auto p-6">
-
-    <!-- ======================================================== -->
-    <!-- TAB 1: FIELD INGESTION (Citizen Reporting Console)       -->
-    <!-- ======================================================== -->
-    <section id="pane-field" class="space-y-6">
-      
-      <!-- Description Banner -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border border-zinc-800 bg-zinc-900/60 p-5 rounded-xl">
-        <div>
-          <h2 class="text-base font-semibold text-white">Emergency Dispatch Ingestion</h2>
-          <p class="text-xs text-zinc-400 mt-1 max-w-2xl leading-relaxed">
-            Simulates report reception from low-bandwidth cellular environments (SMS over 2G, missed calls, or field voice notes). Reports stay persistent in SQLite local storage if the backhaul connection is disrupted.
-          </p>
-        </div>
-        <div class="flex items-center gap-2 text-xs font-mono text-zinc-400 bg-zinc-950 px-3 py-2 rounded border border-zinc-800 self-start md:self-auto">
-          <span>PIPELINE:</span>
-          <span class="text-zinc-200">Local DB &rarr; Saaras STT &rarr; Sarvam 105B &rarr; Bulbul TTS</span>
-        </div>
-      </div>
-
-      <!-- Action Confirmation Toast / System Alert -->
-      <div id="system-toast" class="hidden border p-4 rounded-lg text-xs transition-all"></div>
-
-      <!-- Reporting Form Card -->
-      <div class="border border-zinc-800 bg-zinc-900 rounded-xl overflow-hidden shadow-sm">
-        
-        <!-- Tab selector between SMS & Voice Memo -->
-        <div class="flex border-b border-zinc-800 bg-zinc-950/40 px-5 pt-3">
-          <button id="input-tab-sms" onclick="setInputMode('sms')" class="pb-3 text-xs font-medium border-b-2 border-zinc-100 text-white mr-6 flex items-center gap-2">
-            <i data-lucide="message-square" class="w-3.5 h-3.5 text-zinc-400"></i>
-            SMS Dispatch (2G Low-Bandwidth)
-          </button>
-          <button id="input-tab-voice" onclick="setInputMode('voice')" class="pb-3 text-xs font-medium border-b-2 border-transparent text-zinc-400 hover:text-zinc-200 mr-6 flex items-center gap-2">
-            <i data-lucide="phone-call" class="w-3.5 h-3.5 text-zinc-400"></i>
-            Audio Memo / Missed Call
-          </button>
-        </div>
-
-        <div class="p-6 space-y-6">
-          
-          <!-- SMS VIEW -->
-          <div id="form-sms-block" class="space-y-5">
-            
-            <!-- Preset Scenario Chips -->
-            <div>
-              <span class="text-xs font-mono uppercase tracking-wider text-zinc-400 block mb-2.5">
-                Load Standard Field Incident Scenario:
-              </span>
-              <div class="flex flex-wrap gap-2">
-                <button type="button" onclick="loadScenario('mr')" class="px-3 py-1.5 rounded border border-zinc-800 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-800 text-xs text-zinc-300 transition text-left">
-                  <span class="font-mono text-zinc-400 mr-1.5">[MR]</span>
-                  Chiplun Bazar Peth &bull; Flood (Marathi)
-                </button>
-                <button type="button" onclick="loadScenario('hi')" class="px-3 py-1.5 rounded border border-zinc-800 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-800 text-xs text-zinc-300 transition text-left">
-                  <span class="font-mono text-zinc-400 mr-1.5">[HI]</span>
-                  Kedarnath Marg &bull; Landslide (Hindi)
-                </button>
-                <button type="button" onclick="loadScenario('bn')" class="px-3 py-1.5 rounded border border-zinc-800 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-800 text-xs text-zinc-300 transition text-left">
-                  <span class="font-mono text-zinc-400 mr-1.5">[BN]</span>
-                  Sundarbans Gosaba &bull; Breach (Bengali)
-                </button>
-                <button type="button" onclick="loadScenario('ta')" class="px-3 py-1.5 rounded border border-zinc-800 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-800 text-xs text-zinc-300 transition text-left">
-                  <span class="font-mono text-zinc-400 mr-1.5">[TA]</span>
-                  Tambaram GST Rd &bull; Medical (Tamil)
-                </button>
-              </div>
-            </div>
-
-            <!-- Form Inputs -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div class="md:col-span-1">
-                <label class="block text-xs font-medium text-zinc-400 mb-1.5">Source Identifier / Phone</label>
-                <input type="text" id="field-phone-sms" value="+91 98201 12345" class="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3.5 py-2 text-xs font-mono text-white focus:outline-none focus:border-zinc-500">
-                <span class="text-[11px] text-zinc-500 mt-1 block">Caller number for SMS/voice callback</span>
-              </div>
-              <div class="md:col-span-3">
-                <label class="block text-xs font-medium text-zinc-400 mb-1.5">Distress Message Content (Any Indic script or Latin transliteration)</label>
-                <textarea id="field-text-sms" rows="3" class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-zinc-500 placeholder:text-zinc-600 font-sans" placeholder="Type citizen emergency report details..."></textarea>
-              </div>
-            </div>
-
-            <!-- Submit Action -->
-            <div class="flex items-center justify-between pt-2 border-t border-zinc-800/80">
-              <span class="text-[11px] text-zinc-500 font-mono">
-                Payload format: UTF-8 unstructured text &bull; Zero external cloud dependency during offline state
-              </span>
-              <button id="btn-submit-sms" onclick="dispatchSmsReport()" class="px-5 py-2 rounded-lg text-xs font-semibold bg-zinc-100 hover:bg-white text-zinc-950 transition flex items-center gap-2">
-                <span>Dispatch Emergency Report</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-              </button>
-            </div>
-
-          </div>
-
-          <!-- VOICE VIEW -->
-          <div id="form-voice-block" class="space-y-5 hidden">
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              
-              <!-- Voice Simulation presets -->
-              <div class="border border-zinc-800 bg-zinc-950 p-4 rounded-lg">
-                <div class="text-xs font-semibold text-zinc-200 mb-1.5 flex items-center gap-1.5">
-                  <i data-lucide="radio" class="w-3.5 h-3.5 text-zinc-400"></i>
-                  Simulate Inbound Voice Distress Call
-                </div>
-                <p class="text-xs text-zinc-400 mb-3.5 leading-relaxed">
-                  Synthesizes realistic regional distress speech via Sarvam Bulbul TTS and attaches the recording to an edge queue record. Transcribed via Sarvam Saaras STT upon sync.
-                </p>
-                <div class="grid grid-cols-2 gap-2">
-                  <button type="button" onclick="dispatchVoicePreset('flood_marathi')" class="p-2.5 rounded border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 text-left text-xs transition">
-                    <div class="font-mono text-zinc-400 text-[11px]">[MR] Marathi Voice</div>
-                    <div class="text-zinc-200 font-medium text-xs mt-0.5">Chiplun Flood</div>
-                  </button>
-                  <button type="button" onclick="dispatchVoicePreset('landslide_hindi')" class="p-2.5 rounded border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 text-left text-xs transition">
-                    <div class="font-mono text-zinc-400 text-[11px]">[HI] Hindi Voice</div>
-                    <div class="text-zinc-200 font-medium text-xs mt-0.5">Kedarnath Slide</div>
-                  </button>
-                  <button type="button" onclick="dispatchVoicePreset('cyclone_bengali')" class="p-2.5 rounded border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 text-left text-xs transition">
-                    <div class="font-mono text-zinc-400 text-[11px]">[BN] Bengali Voice</div>
-                    <div class="text-zinc-200 font-medium text-xs mt-0.5">Sundarbans Breach</div>
-                  </button>
-                  <button type="button" onclick="dispatchVoicePreset('medical_tamil')" class="p-2.5 rounded border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 text-left text-xs transition">
-                    <div class="font-mono text-zinc-400 text-[11px]">[TA] Tamil Voice</div>
-                    <div class="text-zinc-200 font-medium text-xs mt-0.5">Tambaram Hospital</div>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Live Microphone Ingestion -->
-              <div class="border border-zinc-800 bg-zinc-950 p-4 rounded-lg flex flex-col justify-between">
-                <div>
-                  <div class="text-xs font-semibold text-zinc-200 mb-1.5 flex items-center gap-1.5">
-                    <i data-lucide="mic" class="w-3.5 h-3.5 text-zinc-400"></i>
-                    Microphone Input
-                  </div>
-                  <p class="text-xs text-zinc-400 mb-3.5 leading-relaxed">
-                    Record voice directly in browser. Audio file is queued in local directory and passed to Sarvam Saaras STT upon connection.
-                  </p>
-                  <div>
-                    <label class="block text-[11px] font-medium text-zinc-400 mb-1">Caller Phone Number</label>
-                    <input type="text" id="field-phone-voice" value="+91 94120 54321" class="w-full bg-zinc-900 border border-zinc-700 rounded px-3 py-1.5 text-xs font-mono text-white">
-                  </div>
-                </div>
-
-                <div class="pt-4 border-t border-zinc-800/80 mt-4">
-                  <button id="btn-mic" onclick="toggleMicrophone()" class="w-full py-2.5 rounded-lg text-xs font-semibold border border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 transition flex items-center justify-center gap-2">
-                    <i data-lucide="disc" class="w-3.5 h-3.5" id="mic-icon"></i>
-                    <span id="mic-text">Record Voice Audio</span>
-                  </button>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- Quick Recent Feed Snapshot -->
-      <div class="border border-zinc-800 bg-zinc-900 rounded-xl p-5">
-        <div class="flex items-center justify-between mb-3 border-b border-zinc-800 pb-2.5">
-          <span class="text-xs font-mono uppercase tracking-wider text-zinc-400">Recent Queue Submissions</span>
-          <button onclick="switchNav('board')" class="text-xs text-zinc-400 hover:text-white underline">Go to Fusion Command &rarr;</button>
-        </div>
-        <div id="quick-queue-preview" class="space-y-2 text-xs">
-          <!-- Rendered dynamically -->
-        </div>
-      </div>
-
-    </section>
-
-    <!-- ======================================================== -->
-    <!-- TAB 2: INCIDENT COMMAND FEED (Fusion Board)              -->
-    <!-- ======================================================== -->
-    <section id="pane-board" class="space-y-6 hidden">
-      
-      <!-- Operational Metric Counters -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="border border-zinc-800 bg-zinc-900 p-4 rounded-xl">
-          <div class="text-[11px] font-mono text-zinc-500 uppercase">Total Incidents</div>
-          <div class="text-2xl font-bold font-mono text-white mt-1" id="kpi-total">0</div>
-        </div>
-        <div class="border border-zinc-800 bg-zinc-900 p-4 rounded-xl">
-          <div class="text-[11px] font-mono text-zinc-500 uppercase">Critical Priority</div>
-          <div class="text-2xl font-bold font-mono text-red-400 mt-1" id="kpi-critical">0</div>
-        </div>
-        <div class="border border-zinc-800 bg-zinc-900 p-4 rounded-xl">
-          <div class="text-[11px] font-mono text-zinc-500 uppercase">Estimated Impact</div>
-          <div class="text-2xl font-bold font-mono text-amber-300 mt-1" id="kpi-affected">0</div>
-        </div>
-        <div class="border border-zinc-800 bg-zinc-900 p-4 rounded-xl">
-          <div class="text-[11px] font-mono text-zinc-500 uppercase">Advisories Synthesized</div>
-          <div class="text-2xl font-bold font-mono text-zinc-200 mt-1" id="kpi-advisories">0</div>
-        </div>
-      </div>
-
-      <!-- Feed Filter Header -->
-      <div class="border border-zinc-800 bg-zinc-900 px-5 py-3 rounded-xl flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-semibold text-white">Emergency Dossier Feed</span>
-          <span class="text-[11px] font-mono text-zinc-500">&bull; Sarvam 105B Structured Extraction</span>
-        </div>
-
-        <div class="flex items-center gap-2 text-xs">
-          <label class="text-zinc-500">Urgency Filter:</label>
-          <select id="select-urgency-filter" onchange="applyIncidentFilter()" class="bg-zinc-950 border border-zinc-700 text-xs text-zinc-200 rounded px-2.5 py-1 focus:outline-none">
-            <option value="ALL">All Incidents</option>
-            <option value="CRITICAL">Critical Only</option>
-            <option value="HIGH">High Priority</option>
-            <option value="MEDIUM">Medium / Low</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Incident Cards Feed -->
-      <div id="incidents-feed-container" class="space-y-4">
-        <!-- Rendered dynamically -->
-      </div>
-
-    </section>
-
-    <!-- ======================================================== -->
-    <!-- TAB 3: EDGE BUFFER & ADVISORIES LOG                      -->
-    <!-- ======================================================== -->
-    <section id="pane-buffer" class="space-y-6 hidden">
-      
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
-        <!-- Edge SQLite Table -->
-        <div class="border border-zinc-800 bg-zinc-900 rounded-xl p-5 flex flex-col">
-          <div class="border-b border-zinc-800 pb-3 mb-4 flex items-center justify-between">
-            <div>
-              <h3 class="text-sm font-semibold text-white">Local Storage Buffer</h3>
-              <p class="text-[11px] text-zinc-500 font-mono">SQLite on Edge Node (offline_emergency.db)</p>
-            </div>
-            <span id="buffer-table-count" class="text-xs font-mono text-zinc-400 bg-zinc-950 border border-zinc-800 px-2 py-0.5 rounded">
-              0 entries
-            </span>
-          </div>
-
-          <div id="buffer-table-rows" class="space-y-2 max-h-[500px] overflow-y-auto custom-scrollbar flex-1 pr-1 text-xs font-mono">
-            <!-- Dynamically populated -->
-          </div>
-        </div>
-
-        <!-- Dispatched Regional Advisories Table -->
-        <div class="border border-zinc-800 bg-zinc-900 rounded-xl p-5 flex flex-col">
-          <div class="border-b border-zinc-800 pb-3 mb-4 flex items-center justify-between">
-            <div>
-              <h3 class="text-sm font-semibold text-white">Outgoing Safety Advisories</h3>
-              <p class="text-[11px] text-zinc-500 font-mono">Synthesized Indic Voice (Bulbul TTS) & SMS</p>
-            </div>
-            <span class="text-xs font-mono text-zinc-400 bg-zinc-950 border border-zinc-800 px-2 py-0.5 rounded">
-              IVR & Cellular
-            </span>
-          </div>
-
-          <div id="advisories-log-rows" class="space-y-3 max-h-[500px] overflow-y-auto custom-scrollbar flex-1 pr-1 text-xs">
-            <!-- Dynamically populated -->
-          </div>
-        </div>
-
-      </div>
-
-    </section>
 
   </main>
 
-  <!-- MODAL: TARGETED CONTROLLER ADVISORY -->
-  <div id="modal-broadcast" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="border border-zinc-700 bg-zinc-900 rounded-xl max-w-lg w-full p-6 shadow-2xl">
-      <div class="flex items-center justify-between border-b border-zinc-800 pb-3 mb-4">
+  <!-- ======================================================== -->
+  <!-- MODAL: REPLY WITH REGIONAL ADVISORY                     -->
+  <!-- ======================================================== -->
+  <div id="modal-reply" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
         <div>
-          <h3 class="text-sm font-bold text-white">Dispatch Regional Directive</h3>
-          <p class="text-[11px] text-zinc-400 font-mono">Sarvam Translate &bull; Sarvam Bulbul TTS</p>
+          <h3 class="text-sm font-bold text-slate-900">Send Voice Directive to Citizen</h3>
+          <p class="text-xs text-slate-500">Translates & speaks in citizen's regional dialect</p>
         </div>
-        <button onclick="closeBroadcastModal()" class="text-zinc-500 hover:text-white">&times;</button>
+        <button onclick="closeReplyModal()" class="text-slate-400 hover:text-slate-600">&times;</button>
       </div>
 
       <div class="space-y-4">
-        <input type="hidden" id="modal-inc-id">
+        <input type="hidden" id="reply-incident-id">
         <div>
-          <label class="block text-[11px] font-mono text-zinc-400 mb-1">Target Citizen</label>
-          <div id="modal-target-label" class="text-xs font-mono bg-zinc-950 border border-zinc-800 p-2.5 rounded text-zinc-200"></div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Target Phone & Language</label>
+          <div id="reply-target-text" class="text-xs font-mono font-semibold bg-slate-50 border border-slate-200 p-2.5 rounded-xl text-slate-800"></div>
         </div>
 
         <div>
-          <label class="block text-[11px] font-mono text-zinc-400 mb-1">Control Directive (English)</label>
-          <textarea id="modal-directive-text" rows="3" class="w-full bg-zinc-950 border border-zinc-700 rounded p-2.5 text-xs text-white focus:outline-none focus:border-zinc-500" placeholder="Type instructions..."></textarea>
-          <span class="text-[11px] text-zinc-500 mt-1 block">
-            Text will be translated into caller's regional language and synthesized into .wav voice audio for cellular playback.
+          <label class="block text-xs font-bold text-slate-600 mb-1">Emergency Instructions (English)</label>
+          <textarea id="reply-message-text" rows="3" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-slate-900 focus:outline-none focus:border-orange-500" placeholder="e.g. National Disaster Response Force (NDRF) rescue boat is dispatched. Please move to the roof."></textarea>
+          <span class="text-[11px] text-slate-400 mt-1 block">
+            Sarvam Translate will convert this to native script, and Bulbul TTS will generate spoken audio.
           </span>
         </div>
 
-        <div class="flex justify-end gap-2 pt-2 border-t border-zinc-800">
-          <button onclick="closeBroadcastModal()" class="px-4 py-2 rounded text-xs border border-zinc-700 text-zinc-300 hover:bg-zinc-800">Cancel</button>
-          <button id="modal-btn-send" onclick="sendBroadcast()" class="px-4 py-2 rounded text-xs font-semibold bg-zinc-100 hover:bg-white text-zinc-950 transition">
-            Translate & Synthesize Audio
+        <div class="flex justify-end gap-2 pt-3 border-t border-slate-100">
+          <button onclick="closeReplyModal()" class="px-4 py-2 rounded-xl text-xs font-semibold border border-slate-200 hover:bg-slate-50 text-slate-600">Cancel</button>
+          <button id="btn-send-reply" onclick="sendReplyDirective()" class="px-5 py-2 rounded-xl text-xs font-bold bg-orange-600 hover:bg-orange-500 text-white transition flex items-center gap-2">
+            <span>Synthesize Voice & Send</span>
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT CONTROLLER                                    -->
+  <!-- ======================================================== -->
   <script>
     // State
-    let currentNav = 'field';
-    let currentInput = 'sms';
+    let activeTab = 'report';
+    let selectedType = 'sms';
     let isOnline = true;
-    let incidentStore = [];
+    let storedIncidents = [];
     let mediaRecorder = null;
-    let recordedAudioChunks = [];
-    let micRecordingActive = false;
+    let audioChunks = [];
+    let isRecording = false;
 
     // Presets
-    const FIELD_SCENARIOS = {
+    const PRESETS = {
       mr: {
         phone: "+91 98201 12345",
         text: "चिपळूण बाजार पेठेत पाणी भरले आहे, ४ लोक घराच्या छतावर अडकली आहेत. वीज गेली आहे, लवकर मदत पाठवा."
@@ -451,67 +504,85 @@
       }
     };
 
-    // Navigation Switcher
-    function switchNav(target) {
-      currentNav = target;
+    // Tab Navigation
+    function switchTab(tab) {
+      activeTab = tab;
       
-      const paneField = document.getElementById('pane-field');
-      const paneBoard = document.getElementById('pane-board');
-      const paneBuffer = document.getElementById('pane-buffer');
+      const tabReport = document.getElementById('tab-report');
+      const tabBoard = document.getElementById('tab-board');
+      const tabQueue = document.getElementById('tab-queue');
+      const tabAdvisories = document.getElementById('tab-advisories');
 
-      const tabField = document.getElementById('nav-tab-field');
-      const tabBoard = document.getElementById('nav-tab-board');
-      const tabBuffer = document.getElementById('nav-tab-buffer');
+      const btnReport = document.getElementById('nav-btn-report');
+      const btnBoard = document.getElementById('nav-btn-board');
+      const btnQueue = document.getElementById('nav-btn-queue');
+      const btnAdvisories = document.getElementById('nav-btn-advisories');
 
-      paneField.classList.add('hidden');
-      paneBoard.classList.add('hidden');
-      paneBuffer.classList.add('hidden');
+      const topTitle = document.getElementById('top-title');
+      const topDesc = document.getElementById('top-desc');
 
-      [tabField, tabBoard, tabBuffer].forEach(t => {
-        t.className = "px-3.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:text-zinc-200 transition";
+      // Hide all panes
+      [tabReport, tabBoard, tabQueue, tabAdvisories].forEach(p => p.classList.add('hidden'));
+
+      // Inactive styles for buttons
+      [btnReport, btnBoard, btnQueue, btnAdvisories].forEach(b => {
+        b.className = "w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition text-slate-400 hover:text-slate-100 hover:bg-slate-800/60";
       });
 
-      if (target === 'field') {
-        paneField.classList.remove('hidden');
-        tabField.className = "px-3.5 py-1.5 rounded-md text-xs font-medium text-white bg-zinc-800 transition";
-      } else if (target === 'board') {
-        paneBoard.classList.remove('hidden');
-        tabBoard.className = "px-3.5 py-1.5 rounded-md text-xs font-medium text-white bg-zinc-800 transition";
-      } else if (target === 'buffer') {
-        paneBuffer.classList.remove('hidden');
-        tabBuffer.className = "px-3.5 py-1.5 rounded-md text-xs font-medium text-white bg-zinc-800 transition";
+      const activeBtnClass = "w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition bg-orange-600 text-white shadow-sm shadow-orange-900/30";
+
+      if (tab === 'report') {
+        tabReport.classList.remove('hidden');
+        btnReport.className = activeBtnClass;
+        topTitle.innerText = "Send Emergency Report";
+        topDesc.innerText = "Submit disaster reports via low-bandwidth SMS or voice notes";
+      } else if (tab === 'board') {
+        tabBoard.classList.remove('hidden');
+        btnBoard.className = activeBtnClass;
+        topTitle.innerText = "Emergency Fusion Board";
+        topDesc.innerText = "Real-time incident triage and extraction powered by Sarvam 105B AI";
+      } else if (tab === 'queue') {
+        tabQueue.classList.remove('hidden');
+        btnQueue.className = activeBtnClass;
+        topTitle.innerText = "Offline Device Storage";
+        topDesc.innerText = "Reports saved locally in SQLite waiting for internet connectivity";
+      } else if (tab === 'advisories') {
+        tabAdvisories.classList.remove('hidden');
+        btnAdvisories.className = activeBtnClass;
+        topTitle.innerText = "Regional Voice & SMS Advisories";
+        topDesc.innerText = "Automated speech alerts generated via Sarvam Bulbul TTS";
       }
 
       lucide.createIcons();
     }
 
-    // Input mode switch (SMS vs Voice)
-    function setInputMode(mode) {
-      currentInput = mode;
-      const smsBlock = document.getElementById('form-sms-block');
-      const voiceBlock = document.getElementById('form-voice-block');
-      const tabSms = document.getElementById('input-tab-sms');
-      const tabVoice = document.getElementById('input-tab-voice');
+    // Report Type Switch (SMS vs Voice)
+    function selectReportType(type) {
+      selectedType = type;
+      const smsSection = document.getElementById('section-sms-input');
+      const voiceSection = document.getElementById('section-voice-input');
+      const cardSms = document.getElementById('type-card-sms');
+      const cardVoice = document.getElementById('type-card-voice');
 
-      if (mode === 'sms') {
-        smsBlock.classList.remove('hidden');
-        voiceBlock.classList.add('hidden');
-        tabSms.className = "pb-3 text-xs font-medium border-b-2 border-zinc-100 text-white mr-6 flex items-center gap-2";
-        tabVoice.className = "pb-3 text-xs font-medium border-b-2 border-transparent text-zinc-400 hover:text-zinc-200 mr-6 flex items-center gap-2";
+      if (type === 'sms') {
+        smsSection.classList.remove('hidden');
+        voiceSection.classList.add('hidden');
+        cardSms.className = "p-5 rounded-2xl border-2 border-orange-500 bg-white text-left shadow-sm transition flex items-start gap-4";
+        cardVoice.className = "p-5 rounded-2xl border-2 border-slate-200 bg-white text-left shadow-sm transition hover:border-slate-300 flex items-start gap-4";
       } else {
-        smsBlock.classList.add('hidden');
-        voiceBlock.classList.remove('hidden');
-        tabVoice.className = "pb-3 text-xs font-medium border-b-2 border-zinc-100 text-white mr-6 flex items-center gap-2";
-        tabSms.className = "pb-3 text-xs font-medium border-b-2 border-transparent text-zinc-400 hover:text-zinc-200 mr-6 flex items-center gap-2";
+        smsSection.classList.add('hidden');
+        voiceSection.classList.remove('hidden');
+        cardVoice.className = "p-5 rounded-2xl border-2 border-orange-500 bg-white text-left shadow-sm transition flex items-start gap-4";
+        cardSms.className = "p-5 rounded-2xl border-2 border-slate-200 bg-white text-left shadow-sm transition hover:border-slate-300 flex items-start gap-4";
       }
       lucide.createIcons();
     }
 
-    function loadScenario(key) {
-      const s = FIELD_SCENARIOS[key];
+    function fillScenario(key) {
+      const s = PRESETS[key];
       if (s) {
-        document.getElementById('field-phone-sms').value = s.phone;
-        document.getElementById('field-text-sms').value = s.text;
+        document.getElementById('input-sms-phone').value = s.phone;
+        document.getElementById('input-sms-message').value = s.text;
       }
     }
 
@@ -521,31 +592,40 @@
         const res = await fetch('/api/network-status');
         const data = await res.json();
         isOnline = data.online;
-        renderNetworkState(data);
+        renderNetworkWidget(data);
       } catch (e) {
-        console.error("Network poll error", e);
+        console.error("Network state fetch error", e);
       }
     }
 
-    function renderNetworkState(data) {
-      const dot = document.getElementById('status-dot');
-      const label = document.getElementById('status-label');
-      const btnToggle = document.getElementById('btn-toggle-net');
-      const pendingCount = document.getElementById('pending-counter');
+    function renderNetworkWidget(data) {
+      const pill = document.getElementById('sidebar-net-pill');
+      const dot = document.getElementById('sidebar-net-dot');
+      const text = document.getElementById('sidebar-net-text');
+      const desc = document.getElementById('sidebar-net-desc');
+      const toggleBtn = document.getElementById('sidebar-toggle-btn');
+      const toggleLabel = document.getElementById('sidebar-toggle-label');
+      const toggleIcon = document.getElementById('sidebar-toggle-icon');
+      const pendingSyncCount = document.getElementById('pending-sync-count');
 
-      pendingCount.innerText = data.pending_count;
+      pendingSyncCount.innerText = data.pending_count;
 
       if (data.online) {
-        dot.className = "h-2 w-2 rounded-full bg-emerald-400";
-        label.innerText = data.is_syncing ? "SYNCING..." : "CONNECTED";
-        label.className = "text-emerald-400 font-mono";
-        btnToggle.innerText = "Simulate Signal Drop";
+        pill.className = "inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+        dot.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+        text.innerText = data.is_syncing ? "Syncing..." : "Online";
+        desc.innerText = "Connected to cellular network. Reports auto-sync with Sarvam AI.";
+        toggleLabel.innerText = "Simulate Signal Loss (Go Offline)";
+        toggleIcon.setAttribute('data-lucide', 'wifi-off');
       } else {
-        dot.className = "h-2 w-2 rounded-full bg-amber-500 animate-pulse";
-        label.innerText = `OFFLINE (${data.pending_count} BUFFERED)`;
-        label.className = "text-amber-400 font-mono";
-        btnToggle.innerText = "Restore Connection";
+        pill.className = "inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20";
+        dot.className = "w-2 h-2 rounded-full bg-amber-400";
+        text.innerText = `Offline (${data.pending_count} queued)`;
+        desc.innerText = "Network dead-zone active. Reports stored safely on-device in SQLite.";
+        toggleLabel.innerText = "Restore Connection (Auto-Sync)";
+        toggleIcon.setAttribute('data-lucide', 'wifi');
       }
+      lucide.createIcons();
     }
 
     async function toggleNetwork() {
@@ -554,48 +634,41 @@
         await fetchNetworkState();
         await refreshAllData();
       } catch (e) {
-        console.error("Toggle error", e);
+        console.error("Network toggle error", e);
       }
     }
 
     async function triggerSync() {
-      const spinner = document.getElementById('sync-spinner');
-      spinner.classList.add('animate-spin');
+      const icon = document.getElementById('sync-icon');
+      icon.classList.add('animate-spin');
       try {
         await fetch('/api/sync', { method: 'POST' });
         await fetchNetworkState();
         await refreshAllData();
       } catch (e) {
-        alert("Cannot sync while in offline mode. Restore connection first.");
+        alert("Cannot sync while in offline mode. Please restore connection first.");
       } finally {
-        spinner.classList.remove('animate-spin');
+        icon.classList.remove('animate-spin');
       }
     }
 
-    // Toast helper
-    function showToast(html, isError = false) {
-      const toast = document.getElementById('system-toast');
-      toast.className = isError 
-        ? "border border-red-500/30 bg-red-950/30 text-red-300 p-4 rounded-lg text-xs" 
-        : "border border-zinc-700 bg-zinc-900 text-zinc-200 p-4 rounded-lg text-xs";
-      toast.innerHTML = html;
-      toast.classList.remove('hidden');
-      lucide.createIcons();
-    }
-
     // Submit SMS
-    async function dispatchSmsReport() {
-      const phone = document.getElementById('field-phone-sms').value;
-      const message = document.getElementById('field-text-sms').value;
-      const btn = document.getElementById('btn-submit-sms');
+    async function submitSms() {
+      const phone = document.getElementById('input-sms-phone').value;
+      const message = document.getElementById('input-sms-message').value;
+      const btn = document.getElementById('btn-submit-report');
+      const toast = document.getElementById('report-toast');
 
       if (!message.trim()) {
-        showToast("Please provide emergency text message content.", true);
+        toast.className = "rounded-2xl p-4 bg-red-50 border border-red-200 text-red-800 text-xs flex items-center gap-2";
+        toast.innerHTML = '<i data-lucide="alert-circle" class="w-4 h-4 text-red-600 flex-shrink-0"></i><span>Please type an emergency description or choose one of the quick scenarios above.</span>';
+        toast.classList.remove('hidden');
+        lucide.createIcons();
         return;
       }
 
       btn.disabled = true;
-      btn.innerHTML = '<span>Processing...</span>';
+      btn.innerHTML = '<span>Processing report...</span>';
 
       try {
         const res = await fetch('/api/citizen/sms', {
@@ -604,38 +677,50 @@
           body: JSON.stringify({ phone, message })
         });
         const data = await res.json();
-        document.getElementById('field-text-sms').value = '';
+        document.getElementById('input-sms-message').value = '';
 
-        const statusNote = data.online 
-          ? "Signal active &bull; Dispatched to Sarvam 105B AI. Emergency advisory synthesized."
-          : "Signal offline &bull; Stored safely in edge SQLite queue. Awaiting reconnection.";
-
-        showToast(`
-          <div class="flex items-center justify-between">
-            <div>
-              <strong class="font-mono text-white">Record #${data.queue_id} Ingested</strong>
-              <div class="text-[11px] text-zinc-400 mt-0.5">${statusNote}</div>
+        // Show friendly success toast
+        toast.className = "rounded-2xl p-4 bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs flex flex-wrap items-center justify-between gap-3";
+        toast.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 flex-shrink-0">
+              <i data-lucide="check" class="w-4 h-4"></i>
             </div>
-            <button onclick="switchNav('board')" class="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-mono">
-              View Feed &rarr;
-            </button>
+            <div>
+              <strong class="font-bold text-emerald-950 text-sm">Emergency Report #${data.queue_id} Received!</strong>
+              <div class="text-xs text-emerald-700 mt-0.5">
+                ${data.online ? 'Signal active: Processed by Sarvam 105B AI. Regional voice advisory synthesized.' : 'Offline mode: Report safely stored in local device queue. Will sync when online.'}
+              </div>
+            </div>
           </div>
-        `);
+          <button onclick="switchTab('board')" class="px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs flex items-center gap-1.5 transition">
+            <span>View on Emergency Board</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        `;
+        toast.classList.remove('hidden');
 
         await fetchNetworkState();
         await refreshAllData();
       } catch (e) {
-        showToast("Failed to dispatch report to edge service.", true);
+        toast.className = "rounded-2xl p-4 bg-red-50 border border-red-200 text-red-800 text-xs";
+        toast.innerHTML = 'Failed to submit report to edge service.';
+        toast.classList.remove('hidden');
       } finally {
         btn.disabled = false;
-        btn.innerHTML = '<span>Dispatch Emergency Report</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>';
+        btn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i><span>Send Emergency Report</span>';
         lucide.createIcons();
       }
     }
 
-    // Voice Preset
-    async function dispatchVoicePreset(presetKey) {
-      showToast("Synthesizing Indic speech via Sarvam Bulbul TTS and queuing audio file...");
+    // Submit Voice Preset
+    async function submitVoicePreset(presetKey) {
+      const toast = document.getElementById('report-toast');
+      toast.className = "rounded-2xl p-4 bg-blue-50 border border-blue-200 text-blue-900 text-xs flex items-center gap-2";
+      toast.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 text-blue-600 animate-spin flex-shrink-0"></i><span>Synthesizing regional caller audio with Sarvam Bulbul TTS and queuing report...</span>';
+      toast.classList.remove('hidden');
+      lucide.createIcons();
+
       try {
         const formData = new FormData();
         formData.append('preset_key', presetKey);
@@ -645,173 +730,185 @@
         });
         const data = await res.json();
 
-        showToast(`
-          <div class="flex items-center justify-between">
-            <div>
-              <strong class="font-mono text-white">Voice Record #${data.queue_id} Queued</strong>
-              <div class="text-[11px] text-zinc-400 mt-0.5">Caller audio memo transcribed via Sarvam Saaras STT.</div>
+        toast.className = "rounded-2xl p-4 bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs flex flex-wrap items-center justify-between gap-3";
+        toast.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 flex-shrink-0">
+              <i data-lucide="check" class="w-4 h-4"></i>
             </div>
-            <button onclick="switchNav('board')" class="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-mono">
-              View Feed &rarr;
-            </button>
+            <div>
+              <strong class="font-bold text-emerald-950 text-sm">Voice Distress Call #${data.queue_id} Queued!</strong>
+              <div class="text-xs text-emerald-700 mt-0.5">Audio memo attached & transcribed by Sarvam Saaras STT.</div>
+            </div>
           </div>
-        `);
-
+          <button onclick="switchTab('board')" class="px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs flex items-center gap-1.5 transition">
+            <span>View on Emergency Board</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        `;
+        lucide.createIcons();
         await fetchNetworkState();
         await refreshAllData();
       } catch (e) {
-        showToast("Voice preset synthesis failed.", true);
+        toast.className = "rounded-2xl p-4 bg-red-50 border border-red-200 text-red-800 text-xs";
+        toast.innerHTML = 'Voice preset submission failed.';
       }
     }
 
-    // Microphone Handler
+    // Microphone Recording
     async function toggleMicrophone() {
-      const btn = document.getElementById('btn-mic');
-      const text = document.getElementById('mic-text');
+      const btn = document.getElementById('btn-mic-toggle');
+      const label = document.getElementById('mic-label');
+      const icon = document.getElementById('mic-icon');
 
-      if (!micRecordingActive) {
+      if (!isRecording) {
         try {
           const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
           mediaRecorder = new MediaRecorder(stream);
-          recordedAudioChunks = [];
+          audioChunks = [];
 
           mediaRecorder.ondataavailable = e => {
-            if (e.data.size > 0) recordedAudioChunks.push(e.data);
+            if (e.data.size > 0) audioChunks.push(e.data);
           };
 
           mediaRecorder.onstop = async () => {
-            const blob = new Blob(recordedAudioChunks, { type: 'audio/wav' });
-            const phone = document.getElementById('field-phone-voice').value;
+            const blob = new Blob(audioChunks, { type: 'audio/wav' });
+            const phone = document.getElementById('input-voice-phone').value;
             const formData = new FormData();
             formData.append('phone', phone);
-            formData.append('file', blob, 'field_mic_audio.wav');
+            formData.append('file', blob, 'mic_recording.wav');
 
-            text.innerText = "Ingesting Audio...";
+            label.innerText = "Uploading audio memo...";
             await fetch('/api/citizen/voice', { method: 'POST', body: formData });
-            text.innerText = "Record Voice Audio";
-            btn.className = "w-full py-2.5 rounded-lg text-xs font-semibold border border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 transition flex items-center justify-center gap-2";
+            label.innerText = "Click to Start Recording";
+            btn.className = "w-full py-3 rounded-xl text-xs font-bold bg-white border border-slate-300 hover:border-red-500 text-slate-700 transition flex items-center justify-center gap-2";
             
-            showToast("Microphone recording stored to edge buffer.");
             await fetchNetworkState();
             await refreshAllData();
+            switchTab('board');
           };
 
           mediaRecorder.start();
-          micRecordingActive = true;
-          text.innerText = "Recording... (Click to Finish)";
-          btn.className = "w-full py-2.5 rounded-lg text-xs font-semibold border border-red-500 bg-red-950 text-red-200 transition flex items-center justify-center gap-2";
+          isRecording = true;
+          label.innerText = "Recording Live Voice... Click to Stop";
+          btn.className = "w-full py-3 rounded-xl text-xs font-bold bg-red-600 text-white transition flex items-center justify-center gap-2 animate-pulse";
         } catch (e) {
-          alert("Microphone capture unavailable. Use the regional voice call presets instead!");
+          alert("Microphone not available. You can use the one-click regional voice call presets above!");
         }
       } else {
         mediaRecorder.stop();
-        micRecordingActive = false;
+        isRecording = false;
       }
     }
 
-    // Refresh Data
-    async function loadQueueData() {
+    // Data Loaders
+    async function loadQueue() {
       try {
         const res = await fetch('/api/queue');
         const queue = await res.json();
         
-        document.getElementById('buffer-table-count').innerText = `${queue.length} entries`;
+        document.getElementById('badge-queue-count').innerText = queue.filter(q => q.status === 'QUEUED').length;
+        document.getElementById('queue-count-tag').innerText = `${queue.length} item(s)`;
 
-        // Render Quick Preview
-        const preview = document.getElementById('quick-queue-preview');
+        const container = document.getElementById('queue-items-table');
         if (!queue || queue.length === 0) {
-          preview.innerHTML = '<span class="text-zinc-600 font-mono text-[11px]">No reports in queue.</span>';
-        } else {
-          preview.innerHTML = queue.slice(0, 3).map(q => `
-            <div class="flex items-center justify-between p-2 rounded bg-zinc-950 border border-zinc-800 font-mono text-[11px]">
-              <span class="text-zinc-300">#${q.id} &bull; ${q.caller_phone} &bull; ${q.report_type.toUpperCase()}</span>
-              <span class="${q.status === 'SYNCED' ? 'text-emerald-400' : 'text-amber-400'}">[${q.status}]</span>
-            </div>
-          `).join('');
+          container.innerHTML = '<div class="text-center py-8 text-xs text-slate-400">Queue is currently empty.</div>';
+          return;
         }
 
-        // Render Buffer Table
-        const bufferTable = document.getElementById('buffer-table-rows');
-        if (!queue || queue.length === 0) {
-          bufferTable.innerHTML = '<div class="text-zinc-600 py-6 text-center">Queue buffer empty.</div>';
-        } else {
-          bufferTable.innerHTML = queue.map(q => `
-            <div class="border border-zinc-800 bg-zinc-950 p-3 rounded">
-              <div class="flex items-center justify-between mb-1">
-                <span class="text-zinc-200 font-bold">#${q.id} &bull; ${q.caller_phone}</span>
-                <span class="${q.status === 'SYNCED' ? 'text-emerald-400' : 'text-amber-400'}">[${q.status}]</span>
-              </div>
-              <div class="text-zinc-400 text-[11px] truncate">${q.raw_content || '[Audio File Attached]'}</div>
-              <div class="text-zinc-600 text-[10px] mt-1 flex justify-between">
-                <span>Created: ${q.created_at}</span>
-                ${q.synced_at ? `<span>Synced: ${q.synced_at}</span>` : ''}
-              </div>
-            </div>
-          `).join('');
-        }
+        container.innerHTML = queue.map(q => {
+          let badge = '';
+          if (q.status === 'QUEUED') {
+            badge = '<span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800">QUEUED (Offline)</span>';
+          } else if (q.status === 'SYNCING') {
+            badge = '<span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 animate-pulse">SYNCING...</span>';
+          } else {
+            badge = '<span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">SYNCED &radic;</span>';
+          }
 
+          const icon = q.report_type === 'sms' ? 'message-square' : 'phone-call';
+
+          return `
+            <div class="border border-slate-200 rounded-xl p-4 bg-slate-50 flex items-start justify-between gap-3 text-xs">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                  <i data-lucide="${icon}" class="w-3.5 h-3.5 text-slate-500"></i>
+                  <strong class="text-slate-800 font-mono">#${q.id}</strong>
+                  <span class="text-slate-500 font-mono">${q.caller_phone}</span>
+                </div>
+                <div class="text-slate-700 truncate font-medium">${q.raw_content || '[Audio File Attached]'}</div>
+                <div class="text-[11px] text-slate-400 mt-1">Logged: ${q.created_at}</div>
+              </div>
+              <div>${badge}</div>
+            </div>
+          `;
+        }).join('');
+
+        lucide.createIcons();
       } catch (e) {
         console.error("Queue load error", e);
       }
     }
 
-    async function loadIncidentsData() {
+    async function loadIncidents() {
       try {
         const res = await fetch('/api/incidents');
         const incidents = await res.json();
-        incidentStore = incidents;
+        storedIncidents = incidents;
 
-        document.getElementById('nav-incident-badge').innerText = incidents.length;
-        document.getElementById('kpi-total').innerText = incidents.length;
-        document.getElementById('kpi-critical').innerText = incidents.filter(i => i.urgency === 'CRITICAL').length;
-        document.getElementById('kpi-affected').innerText = incidents.reduce((acc, i) => acc + (i.affected_count || 1), 0);
+        document.getElementById('badge-board-count').innerText = incidents.length;
+        document.getElementById('metric-total').innerText = incidents.length;
+        document.getElementById('metric-critical').innerText = incidents.filter(i => i.urgency === 'CRITICAL').length;
+        document.getElementById('metric-affected').innerText = incidents.reduce((sum, i) => sum + (i.affected_count || 1), 0);
 
-        applyIncidentFilter();
+        applyFilters();
       } catch (e) {
         console.error("Incidents load error", e);
       }
     }
 
-    function applyIncidentFilter() {
-      const filter = document.getElementById('select-urgency-filter').value;
-      let list = incidentStore;
+    function applyFilters() {
+      const filter = document.getElementById('filter-urgency').value;
+      let list = storedIncidents;
 
       if (filter !== 'ALL') {
         if (filter === 'MEDIUM') {
-          list = incidentStore.filter(i => i.urgency === 'MEDIUM' || i.urgency === 'LOW');
+          list = storedIncidents.filter(i => i.urgency === 'MEDIUM' || i.urgency === 'LOW');
         } else {
-          list = incidentStore.filter(i => i.urgency === filter);
+          list = storedIncidents.filter(i => i.urgency === filter);
         }
       }
 
-      renderIncidents(list);
+      renderIncidentCards(list);
     }
 
-    function renderIncidents(incidents) {
-      const container = document.getElementById('incidents-feed-container');
+    function renderIncidentCards(incidents) {
+      const container = document.getElementById('board-incident-list');
 
       if (!incidents || incidents.length === 0) {
         container.innerHTML = `
-          <div class="border border-zinc-800 bg-zinc-900 rounded-xl p-12 text-center text-zinc-500 text-xs font-mono">
-            No incident reports matching active filter.
+          <div class="bg-white border border-slate-200 rounded-2xl p-12 text-center text-slate-400 text-xs">
+            No emergency reports found. Send a report from the "Send Emergency Report" tab to view live incident triage.
           </div>
         `;
         return;
       }
 
       container.innerHTML = incidents.map(inc => {
-        let badgeClass = 'text-zinc-300 border-zinc-700 bg-zinc-800';
+        let badge = '';
         if (inc.urgency === 'CRITICAL') {
-          badgeClass = 'text-red-400 border-red-500/40 bg-red-950/40 font-bold';
+          badge = '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-red-100 text-red-700 border border-red-200 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping"></span>CRITICAL PRIORITY</span>';
         } else if (inc.urgency === 'HIGH') {
-          badgeClass = 'text-amber-400 border-amber-500/40 bg-amber-950/40 font-bold';
+          badge = '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-200">HIGH PRIORITY</span>';
+        } else {
+          badge = '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-100 text-blue-800 border border-blue-200">MEDIUM / LOW</span>';
         }
 
-        let audioBlock = '';
+        let callerAudio = '';
         if (inc.caller_audio_file) {
-          audioBlock = `
-            <div class="mt-2.5 p-2.5 rounded border border-zinc-800 bg-zinc-950">
-              <span class="text-[10px] font-mono text-zinc-400 block mb-1">CALLER RECORDING (Saaras STT Transcript)</span>
+          callerAudio = `
+            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl mt-3">
+              <span class="text-[11px] font-bold text-slate-600 block mb-1">Incoming Caller Voice Recording (Transcribed by Saaras STT):</span>
               <audio controls class="w-full h-7 rounded">
                 <source src="/audio/${inc.caller_audio_file}" type="audio/wav">
               </audio>
@@ -819,11 +916,11 @@
           `;
         }
 
-        let advisoryAudioBlock = '';
+        let advisoryAudio = '';
         if (inc.advisory_audio_file) {
-          advisoryAudioBlock = `
-            <div class="mt-2.5 p-2.5 rounded border border-zinc-800 bg-zinc-950">
-              <span class="text-[10px] font-mono text-zinc-400 block mb-1">REGIONAL VOICE ADVISORY (Bulbul TTS Output)</span>
+          advisoryAudio = `
+            <div class="p-3 bg-orange-50/70 border border-orange-200 rounded-xl mt-3">
+              <span class="text-[11px] font-bold text-orange-800 block mb-1">Generated Regional Voice Advisory (Synthesized by Bulbul TTS):</span>
               <audio controls class="w-full h-7 rounded">
                 <source src="/audio/${inc.advisory_audio_file}" type="audio/wav">
               </audio>
@@ -832,82 +929,84 @@
         }
 
         return `
-          <div class="border border-zinc-800 bg-zinc-900 rounded-xl p-5 transition hover:border-zinc-700">
+          <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition">
             
-            <!-- Card Header -->
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800 pb-3 mb-4">
+            <!-- Top Row -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100 mb-4">
               <div class="flex items-center gap-2.5">
-                <span class="font-mono text-xs font-bold text-zinc-200">#INC-${inc.id}</span>
-                <span class="text-[11px] font-mono px-2 py-0.5 rounded border ${badgeClass}">
-                  ${inc.urgency}
-                </span>
-                <span class="text-[11px] font-mono px-2 py-0.5 rounded border border-zinc-700 bg-zinc-800 text-zinc-300">
-                  ${inc.category.toUpperCase()}
-                </span>
-                <span class="text-xs font-mono text-zinc-400">${inc.caller_phone}</span>
+                <span class="font-mono font-bold text-xs text-slate-900">#INC-${inc.id}</span>
+                ${badge}
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-700 uppercase">${inc.category}</span>
+                <span class="text-xs font-mono text-slate-500">${inc.caller_phone}</span>
               </div>
 
               <div class="flex items-center gap-2">
-                <select onchange="updateIncidentStatus(${inc.id}, this.value)" class="bg-zinc-950 border border-zinc-700 text-xs font-mono text-zinc-300 rounded px-2.5 py-1 focus:outline-none">
-                  <option value="NEW" ${inc.status === 'NEW' ? 'selected' : ''}>NEW</option>
-                  <option value="ASSIGNED" ${inc.status === 'ASSIGNED' ? 'selected' : ''}>ASSIGNED</option>
-                  <option value="DISPATCHED" ${inc.status === 'DISPATCHED' ? 'selected' : ''}>DISPATCHED</option>
-                  <option value="RESOLVED" ${inc.status === 'RESOLVED' ? 'selected' : ''}>RESOLVED</option>
+                <select onchange="updateStatus(${inc.id}, this.value)" class="bg-slate-50 border border-slate-300 text-xs font-semibold text-slate-700 rounded-xl px-3 py-1.5 focus:outline-none">
+                  <option value="NEW" ${inc.status === 'NEW' ? 'selected' : ''}>Status: New</option>
+                  <option value="ASSIGNED" ${inc.status === 'ASSIGNED' ? 'selected' : ''}>Status: Assigned</option>
+                  <option value="DISPATCHED" ${inc.status === 'DISPATCHED' ? 'selected' : ''}>Status: Dispatched</option>
+                  <option value="RESOLVED" ${inc.status === 'RESOLVED' ? 'selected' : ''}>Status: Resolved</option>
                 </select>
-                <button onclick="openBroadcastModal(${inc.id}, '${inc.caller_phone}', '${inc.detected_language}')" class="px-3 py-1 rounded text-xs font-medium border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 transition">
-                  Send Advisory
+                <button onclick="openReplyModal(${inc.id}, '${inc.caller_phone}', '${inc.detected_language}')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 transition flex items-center gap-1.5">
+                  <i data-lucide="radio" class="w-3.5 h-3.5"></i>
+                  <span>Reply with Voice Directive</span>
                 </button>
               </div>
             </div>
 
-            <!-- Two-Column Dossier -->
+            <!-- Content Grid: Citizen Report vs Sarvam AI Assessment -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
               
-              <!-- Column 1: Citizen Ingestion Details -->
+              <!-- Left: Citizen Words & Location -->
               <div class="space-y-3">
-                <div class="bg-zinc-950 border border-zinc-800 p-3 rounded">
-                  <span class="text-[10px] font-mono uppercase text-zinc-500 block mb-1">Original Report (${inc.detected_language})</span>
-                  <p class="text-zinc-200 font-sans italic text-xs leading-relaxed">"${inc.original_text}"</p>
+                <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-xl">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Citizen's Original Words (${inc.detected_language}):</span>
+                  <p class="text-slate-900 italic font-medium leading-relaxed">"${inc.original_text}"</p>
                 </div>
 
-                <div class="grid grid-cols-3 gap-2 text-[11px] font-mono bg-zinc-950 border border-zinc-800 p-2.5 rounded">
+                <div class="grid grid-cols-3 gap-2 bg-slate-50 border border-slate-200 p-3 rounded-xl text-[11px]">
                   <div>
-                    <span class="text-zinc-500 block text-[10px]">LOCATION</span>
-                    <span class="text-zinc-200 truncate block">${inc.location || 'Unknown'}</span>
+                    <span class="text-slate-400 text-[10px] block font-bold uppercase">Location</span>
+                    <strong class="text-slate-800 truncate block mt-0.5">${inc.location || 'Unknown'}</strong>
                   </div>
                   <div>
-                    <span class="text-zinc-500 block text-[10px]">CASUALTIES</span>
-                    <span class="text-amber-400 block font-bold">~${inc.affected_count || 1}</span>
+                    <span class="text-slate-400 text-[10px] block font-bold uppercase">Affected</span>
+                    <strong class="text-amber-700 block mt-0.5">~${inc.affected_count || 1} people</strong>
                   </div>
                   <div>
-                    <span class="text-zinc-500 block text-[10px]">DIALECT</span>
-                    <span class="text-zinc-300 block">${inc.detected_language}</span>
+                    <span class="text-slate-400 text-[10px] block font-bold uppercase">Language</span>
+                    <strong class="text-blue-700 block mt-0.5">${inc.detected_language}</strong>
                   </div>
                 </div>
 
-                ${audioBlock}
+                ${callerAudio}
               </div>
 
-              <!-- Column 2: Sarvam 105B Control Room Brief -->
+              <!-- Right: Sarvam AI Assessment & Generated Advisory -->
               <div class="space-y-3">
-                <div class="bg-zinc-950 border border-zinc-800 p-3 rounded">
-                  <span class="text-[10px] font-mono uppercase text-zinc-400 block mb-1">Sarvam 105B Situation Assessment</span>
-                  <p class="text-zinc-300 font-sans text-xs leading-relaxed">${inc.english_summary}</p>
+                <div class="bg-emerald-50/60 border border-emerald-200 p-3.5 rounded-xl">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-800 flex items-center gap-1.5 mb-1">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-600"></i>
+                    Sarvam 105B Control Room Brief:
+                  </span>
+                  <p class="text-slate-800 leading-relaxed font-medium">${inc.english_summary}</p>
                 </div>
 
-                <div class="bg-zinc-950 border border-zinc-800 p-3 rounded">
-                  <span class="text-[10px] font-mono uppercase text-zinc-400 block mb-1">Automated Caller Directive (${inc.detected_language})</span>
-                  <p class="text-zinc-200 font-sans text-xs leading-relaxed">${inc.regional_advisory_text || 'Standard protocol dispatched.'}</p>
+                <div class="bg-orange-50/60 border border-orange-200 p-3.5 rounded-xl">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-orange-800 block mb-1">
+                    Automated Advice Dispatched to Citizen (${inc.detected_language}):
+                  </span>
+                  <p class="text-slate-800 leading-relaxed font-medium">${inc.regional_advisory_text || 'Standard protocol.'}</p>
                 </div>
 
-                ${advisoryAudioBlock}
+                ${advisoryAudio}
               </div>
 
             </div>
 
-            <div class="text-[10px] font-mono text-zinc-600 mt-4 pt-2 border-t border-zinc-800 flex justify-between">
-              <span>SOURCE_ID: ${inc.queue_id ? `#Q-${inc.queue_id}` : 'MANUAL'}</span>
-              <span>LOGGED_AT: ${inc.created_at}</span>
+            <div class="text-[11px] text-slate-400 mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span>Queue Record: #${inc.queue_id || 1}</span>
+              <span>Logged: ${inc.created_at}</span>
             </div>
 
           </div>
@@ -917,33 +1016,35 @@
       lucide.createIcons();
     }
 
-    async function loadAdvisoriesData() {
+    async function loadAdvisories() {
       try {
         const res = await fetch('/api/advisories');
         const advisories = await res.json();
-        document.getElementById('kpi-advisories').innerText = advisories.length;
+        
+        document.getElementById('badge-advisories-count').innerText = advisories.length;
+        document.getElementById('metric-advisories').innerText = advisories.length;
 
-        const container = document.getElementById('advisories-log-rows');
+        const container = document.getElementById('advisories-list-cards');
         if (!advisories || advisories.length === 0) {
-          container.innerHTML = '<div class="text-zinc-600 py-6 text-center">No advisories generated yet.</div>';
+          container.innerHTML = '<div class="text-center py-8 text-xs text-slate-400">No safety advisories generated yet.</div>';
           return;
         }
 
         container.innerHTML = advisories.map(a => `
-          <div class="border border-zinc-800 bg-zinc-950 p-3 rounded">
-            <div class="flex items-center justify-between mb-1">
-              <span class="font-mono text-zinc-300">${a.caller_phone} &bull; ${a.channel}</span>
-              <span class="font-mono text-zinc-500 text-[10px]">${a.language}</span>
+          <div class="border border-slate-200 bg-slate-50 rounded-xl p-4 text-xs">
+            <div class="flex items-center justify-between mb-1.5">
+              <strong class="text-slate-800 font-mono">${a.caller_phone} &bull; ${a.channel}</strong>
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800">${a.language}</span>
             </div>
-            <p class="text-zinc-300 text-xs mt-1 leading-relaxed">${a.message_text}</p>
+            <p class="text-slate-800 mt-1 leading-relaxed bg-white border border-slate-200 p-3 rounded-lg">${a.message_text}</p>
             ${a.audio_file ? `
-              <div class="mt-2">
-                <audio controls class="w-full h-6 rounded">
+              <div class="mt-2.5">
+                <audio controls class="w-full h-7 rounded">
                   <source src="/audio/${a.audio_file}" type="audio/wav">
                 </audio>
               </div>
             ` : ''}
-            <div class="text-zinc-600 text-[10px] font-mono mt-2">${a.created_at}</div>
+            <div class="text-[11px] text-slate-400 mt-2 text-right">Dispatched: ${a.created_at}</div>
           </div>
         `).join('');
 
@@ -953,40 +1054,40 @@
       }
     }
 
-    async function updateIncidentStatus(id, newStatus) {
+    async function updateStatus(id, newStatus) {
       try {
         await fetch(`/api/incident/${id}/status`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ status: newStatus })
         });
-        await loadIncidentsData();
+        await loadIncidents();
       } catch (e) {
-        alert("Status update failed");
+        alert("Failed to update status");
       }
     }
 
-    // Modal
-    function openBroadcastModal(id, phone, lang) {
-      document.getElementById('modal-inc-id').value = id;
-      document.getElementById('modal-target-label').innerText = `${phone} (${lang})`;
-      document.getElementById('modal-directive-text').value = "Emergency relief boats are en route to your sector. Turn off electrical switches and remain on the terrace.";
-      document.getElementById('modal-broadcast').classList.remove('hidden');
+    // Reply Modal
+    function openReplyModal(id, phone, lang) {
+      document.getElementById('reply-incident-id').value = id;
+      document.getElementById('reply-target-text').innerText = `${phone} (Language: ${lang})`;
+      document.getElementById('reply-message-text').value = "Emergency relief boats are en route to your sector. Turn off electrical switches and remain on high ground.";
+      document.getElementById('modal-reply').classList.remove('hidden');
     }
 
-    function closeBroadcastModal() {
-      document.getElementById('modal-broadcast').classList.add('hidden');
+    function closeReplyModal() {
+      document.getElementById('modal-reply').classList.add('hidden');
     }
 
-    async function sendBroadcast() {
-      const id = document.getElementById('modal-inc-id').value;
-      const text = document.getElementById('modal-directive-text').value;
-      const btn = document.getElementById('modal-btn-send');
+    async function sendReplyDirective() {
+      const id = document.getElementById('reply-incident-id').value;
+      const text = document.getElementById('reply-message-text').value;
+      const btn = document.getElementById('btn-send-reply');
 
       if (!text.trim()) return;
 
       btn.disabled = true;
-      btn.innerText = "Synthesizing...";
+      btn.innerText = "Synthesizing with Sarvam AI...";
 
       try {
         await fetch(`/api/incident/${id}/send-advisory`, {
@@ -994,21 +1095,22 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message_en: text })
         });
-        closeBroadcastModal();
+        closeReplyModal();
         await refreshAllData();
+        switchTab('advisories');
       } catch (e) {
         alert("Broadcast failed");
       } finally {
         btn.disabled = false;
-        btn.innerText = "Translate & Synthesize Audio";
+        btn.innerText = "Synthesize Voice & Send";
       }
     }
 
     async function refreshAllData() {
-      await Promise.all([loadQueueData(), loadIncidentsData(), loadAdvisoriesData()]);
+      await Promise.all([loadQueue(), loadIncidents(), loadAdvisories()]);
     }
 
-    // Initial load & Polling
+    // Initial setup
     fetchNetworkState();
     refreshAllData();
     setInterval(async () => {
